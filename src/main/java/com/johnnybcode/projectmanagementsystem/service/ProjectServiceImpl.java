@@ -3,14 +3,17 @@ package com.johnnybcode.projectmanagementsystem.service;
 import com.johnnybcode.projectmanagementsystem.model.Chat;
 import com.johnnybcode.projectmanagementsystem.model.Project;
 import com.johnnybcode.projectmanagementsystem.model.User;
+
 import com.johnnybcode.projectmanagementsystem.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-public class ProjectServiceImpl implements ProjectService{
+public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private ProjectRepository projectRepository;
@@ -18,6 +21,8 @@ public class ProjectServiceImpl implements ProjectService{
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ChatService chatService;
 
     @Override
     public Project createProject(Project project, User user) throws Exception {
@@ -34,20 +39,37 @@ public class ProjectServiceImpl implements ProjectService{
 
         Chat chat = new Chat();
         chat.setProject(savedProject);
+        Chat projectChat = chatService.createChat(chat);
 
-        // TODO: Chat projectChat=chat
+        savedProject.setChat(projectChat);
 
-        return null;
+        return savedProject;
     }
 
     @Override
     public List<Project> getProjectByTeam(User user, String category, String tag) throws Exception {
-        return List.of();
+        List<Project> projects = projectRepository.findByTeamContainingOrOwner(user, user);
+
+        if (category != null) {
+            projects = projects.stream().filter(project -> project.getCategory().equals(category))
+                    .toList(); // si no funciona sustituir por .collect(Collectors.toList())
+        }
+
+        if (tag != null) {
+            projects = projects.stream().filter(project -> project.getTags().contains(tag))
+                    .toList(); // si no funciona sustituir por .collect(Collectors.toList())
+        }
+
+        return projects;
     }
 
     @Override
     public Project getProjectById(Long projectId) throws Exception {
-        return null;
+        Optional<Project> optionalProject = projectRepository.findById(projectId);
+        if (optionalProject.isEmpty()) {
+            throw new Exception("Proyecto no encontrado");
+        }
+        return optionalProject.get();
     }
 
     @Override
