@@ -3,12 +3,18 @@ package com.johnnybcode.projectmanagementsystem.service;
 import com.johnnybcode.projectmanagementsystem.model.Chat;
 import com.johnnybcode.projectmanagementsystem.model.Project;
 import com.johnnybcode.projectmanagementsystem.model.User;
+import com.johnnybcode.projectmanagementsystem.repository.ProjectRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class ProjectServiceImpl implements ProjectService{
+
+    @Autowired
+    private ProjectRepository projectRepository;
+
 
     @Override
     public Project createProject(Project project, User user) throws Exception {
