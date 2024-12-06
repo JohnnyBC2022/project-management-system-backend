@@ -1,5 +1,6 @@
 package com.johnnybcode.projectmanagementsystem.controller;
 
+import com.johnnybcode.projectmanagementsystem.model.Chat;
 import com.johnnybcode.projectmanagementsystem.model.Project;
 import com.johnnybcode.projectmanagementsystem.model.User;
 import com.johnnybcode.projectmanagementsystem.response.MessageResponse;
@@ -75,7 +76,7 @@ public class ProjectController {
     ) throws Exception {
         User user = userService.findUserProfileByJwt(jwt);
         projectService.deleteProject(projectId, user.getId());
-        MessageResponse res=new MessageResponse("Proyecto eliminado correctamente");
+        MessageResponse res = new MessageResponse("Proyecto eliminado correctamente");
 
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
@@ -91,7 +92,16 @@ public class ProjectController {
         return new ResponseEntity<>(projects, HttpStatus.OK);
     }
 
+    @GetMapping("/{projectId}/chat")
+    public ResponseEntity<Chat> getChatByProjectId(
+            @PathVariable Long projectId,
+            @RequestHeader("Authorization") String jwt
+    ) throws Exception {
+        User user = userService.findUserProfileByJwt(jwt);
+        Chat chat = projectService.getChatByProjectId(projectId);
 
+        return new ResponseEntity<>(chat, HttpStatus.OK);
+    }
 
 
 }
