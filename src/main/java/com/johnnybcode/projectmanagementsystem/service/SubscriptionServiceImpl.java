@@ -33,7 +33,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
-    public Subscription getUsersSubscription(Long userId) throws Exception {
+    public Subscription getUserSubscription(Long userId) throws Exception {
 
         Subscription subscription = subscriptionRepository.findByUserId(userId);
 
