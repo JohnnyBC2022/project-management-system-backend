@@ -34,7 +34,7 @@ public class SubscriptionController {
     public ResponseEntity<Subscription> upgradeSubscription(
             @RequestHeader("Authorization") String jwt,
             @RequestParam PlanType planType
-            ) throws Exception {
+    ) throws Exception {
         User user = userService.findUserProfileByJwt(jwt);
 
         Subscription subscription = subscriptionService.upgradeSubscription(user.getId(), planType);

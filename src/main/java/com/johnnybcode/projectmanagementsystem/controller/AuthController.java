@@ -85,14 +85,14 @@ public class AuthController {
     }
 
     private Authentication authenticate(String username, String password) {
-        UserDetails userDetails= customUserDetails.loadUserByUsername(username);
-        if (userDetails==null){
+        UserDetails userDetails = customUserDetails.loadUserByUsername(username);
+        if (userDetails == null) {
             throw new BadCredentialsException("Nombre de usuario incorrecto");
         }
-        if(!passwordEncoder.matches(password, userDetails.getPassword())){
+        if (!passwordEncoder.matches(password, userDetails.getPassword())) {
             throw new BadCredentialsException("Password incorrecto");
         }
 
-        return new UsernamePasswordAuthenticationToken(userDetails,null, userDetails.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
 }

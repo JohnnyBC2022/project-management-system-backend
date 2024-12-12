@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CommentServiceImpl implements CommentService{
+public class CommentServiceImpl implements CommentService {
 
     @Autowired
     private CommentRepository commentRepository;
@@ -30,10 +30,10 @@ public class CommentServiceImpl implements CommentService{
         Optional<Issue> issueOptional = issueRepository.findById(issueId);
         Optional<User> userOptional = userRepository.findById(userId);
 
-        if (issueOptional.isEmpty()){
+        if (issueOptional.isEmpty()) {
             throw new Exception("Asunto no encontrado con id " + issueId);
         }
-        if (userOptional.isEmpty()){
+        if (userOptional.isEmpty()) {
             throw new Exception("Usuario no encontrado con id " + userId);
         }
 
@@ -59,17 +59,17 @@ public class CommentServiceImpl implements CommentService{
         Optional<Comment> commentOptional = commentRepository.findById(commentId);
         Optional<User> userOptional = userRepository.findById(userId);
 
-        if (commentOptional.isEmpty()){
+        if (commentOptional.isEmpty()) {
             throw new Exception("Comentario no encontrado con id " + commentId);
         }
-        if (userOptional.isEmpty()){
+        if (userOptional.isEmpty()) {
             throw new Exception("Usuario no encontrado con id " + userId);
         }
 
         Comment comment = commentOptional.get();
         User user = userOptional.get();
 
-        if (comment.getUser().equals(user)){
+        if (comment.getUser().equals(user)) {
             commentRepository.delete(comment);
         } else {
             throw new Exception("Este ssuario no tiene permisos para eliminar el comentario ");

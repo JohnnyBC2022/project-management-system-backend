@@ -118,7 +118,7 @@ public class ProjectController {
         User user = userService.findUserProfileByJwt(jwt);
         Project createdProject = projectService.createProject(project, user);
         invitationService.sendInvitation(req.getEmail(), req.getProjectId());
-        MessageResponse res= new MessageResponse("Invitación enviada");
+        MessageResponse res = new MessageResponse("Invitación enviada");
 
         return new ResponseEntity<>(res, HttpStatus.OK);
     }

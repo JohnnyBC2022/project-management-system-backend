@@ -10,24 +10,24 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EmailServiceImpl implements EmailService{
+public class EmailServiceImpl implements EmailService {
 
     @Autowired
     private JavaMailSender javaMailSender;
 
     @Override
     public void sendEmailWithToken(String userEmail, String link) throws MessagingException {
-        MimeMessage mimeMessage=javaMailSender.createMimeMessage();
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
 
-        String subject="Invitación para unirse al Proyecto de Equipo";
-        String text="Haz click para unirte al Proyecto de Equipo" + link;
+        String subject = "Invitación para unirse al Proyecto de Equipo";
+        String text = "Haz click para unirte al Proyecto de Equipo" + link;
 
         helper.setSubject(subject);
         helper.setText(text, true);
         helper.setTo(userEmail);
 
-        try{
+        try {
             javaMailSender.send(mimeMessage);
         } catch (MailSendException e) {
             throw new MailSendException("El envío del email con la invitación ha fallado");
