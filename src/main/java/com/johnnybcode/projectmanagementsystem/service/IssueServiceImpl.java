@@ -29,17 +29,17 @@ public class IssueServiceImpl implements IssueService {
         if (issue.isPresent()) {
             return issue.get();
         }
-        throw new Exception("No hay asunto encontrado con Id:" + issueId);
+        throw new Exception("No hay tareas con Id:" + issueId);
     }
 
     @Override
     public List<Issue> getIssueByProjectId(Long projectId) throws Exception {
-        return issueRepository.findByProjectId(projectId);
+        return issueRepository.findByProjectID(projectId);
     }
 
     @Override
     public Issue createIssue(IssueRequest issueRequest, User user) throws Exception {
-        Project project = projectService.getProjectById(issueRequest.getProjectID());
+        Project project = projectService.getProjectById(issueRequest.getProjectId());
 
         Issue issue = new Issue();
         issue.setTitle(issueRequest.getTitle());

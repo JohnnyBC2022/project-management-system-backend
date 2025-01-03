@@ -2,10 +2,8 @@ package com.johnnybcode.projectmanagementsystem.controller;
 
 import com.johnnybcode.projectmanagementsystem.model.Issue;
 import com.johnnybcode.projectmanagementsystem.model.IssueDTO;
-import com.johnnybcode.projectmanagementsystem.model.Project;
 import com.johnnybcode.projectmanagementsystem.model.User;
 import com.johnnybcode.projectmanagementsystem.request.IssueRequest;
-import com.johnnybcode.projectmanagementsystem.response.AuthResponse;
 import com.johnnybcode.projectmanagementsystem.response.MessageResponse;
 import com.johnnybcode.projectmanagementsystem.service.IssueService;
 import com.johnnybcode.projectmanagementsystem.service.UserService;
@@ -13,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -38,25 +34,25 @@ public class IssueController {
     }
 
     @PostMapping
-    public ResponseEntity<IssueDTO> createIssue(@RequestBody IssueRequest issueRequest,
+    public ResponseEntity<IssueDTO> createIssue(@RequestBody IssueRequest issue,
                                                 @RequestHeader("Authorization") String token)
             throws Exception {
 
         User tokenUser = userService.findUserProfileByJwt(token);
         User user = userService.findUserById(tokenUser.getId());
 
-        Issue createdIssue = issueService.createIssue(issueRequest, tokenUser);
+        Issue createdIssue = issueService.createIssue(issue, tokenUser);
         IssueDTO issueDTO = new IssueDTO();
 
-        issueDTO.setId(createdIssue.getId());
-        issueDTO.setTitle(createdIssue.getTitle());
         issueDTO.setDescription(createdIssue.getDescription());
-        issueDTO.setStatus(createdIssue.getStatus());
-        issueDTO.setProjectId(createdIssue.getProjectID());
-        issueDTO.setPriority(createdIssue.getPriority());
         issueDTO.setDueDate(createdIssue.getDueDate());
-        issueDTO.setTags(createdIssue.getTags());
+        issueDTO.setId(createdIssue.getId());
+        issueDTO.setPriority(createdIssue.getPriority());
         issueDTO.setProject(createdIssue.getProject());
+        issueDTO.setProjectID(createdIssue.getProjectID());
+        issueDTO.setStatus(createdIssue.getStatus());
+        issueDTO.setTitle(createdIssue.getTitle());
+        issueDTO.setTags(createdIssue.getTags());
         issueDTO.setAssignee(createdIssue.getAssignee());
 
         return ResponseEntity.ok(issueDTO);
@@ -70,7 +66,7 @@ public class IssueController {
         issueService.deleteIssue(issueId, user.getId());
 
         MessageResponse res = new MessageResponse();
-        res.setMessage("Asunto borrado");
+        res.setMessage("Tarea borrada");
 
         return ResponseEntity.ok(res);
     }
