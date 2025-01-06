@@ -19,6 +19,7 @@ public class Issue {
     private String title;
     private String description;
     private String status;
+    @Transient
     private Long projectID;
     private String priority;
     private LocalDate dueDate;
@@ -34,4 +35,10 @@ public class Issue {
     @JsonIgnore
     @OneToMany(mappedBy = "issue", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
+
+    @PostLoad
+    @PostPersist
+    private void syncProjectID() {
+        this.projectID = (project != null) ? project.getId() : null;
+    }
 }
