@@ -33,7 +33,7 @@ public class PaymentController {
     ) throws Exception {
         User user = userService.findUserProfileByJwt(jwt);
         double amount = 7.99 * 100;
-        if (planType.equals(PlanType.ANNUALLY)) {
+        if (planType.equals(PlanType.ANUAL)) {
             amount = amount * 12;
             amount = (int) (amount * 0.7); // 30% de descuento
         }
@@ -53,7 +53,7 @@ public class PaymentController {
         notify.put("email", true);
         paymentLinkRequest.put("notify", notify);
 
-        paymentLinkRequest.put("callback_url", "http://localhost:5173/upgrade_plan/success?plantType" + planType);
+        paymentLinkRequest.put("callback_url", "http://localhost:5173/upgrade_plan/success?plantType=" + planType);
 
         PaymentLink payment = razorpay.paymentLink.create(paymentLinkRequest);
 
