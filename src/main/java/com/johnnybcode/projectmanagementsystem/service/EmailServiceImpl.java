@@ -20,7 +20,7 @@ public class EmailServiceImpl implements EmailService {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
 
-        String subject = "Has sido invita para unirte a un proyecto.";
+        String subject = "Has sido invitado para unirte a un proyecto.";
         String text = "Haz click para unirte al Proyecto de Equipo: <br>"  + link;
 
         helper.setSubject(subject);

@@ -21,5 +21,6 @@ public interface IssueService {
 
     Issue updateStatus(Long issueId, String status) throws Exception;
 
+    Issue updateIssueById(Long issueId, IssueRequest issueRequest) throws  Exception;
 
 }

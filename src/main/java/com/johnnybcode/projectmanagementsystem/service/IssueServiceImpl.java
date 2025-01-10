@@ -76,4 +76,19 @@ public class IssueServiceImpl implements IssueService {
 
         return issueRepository.save(issue);
     }
+
+    @Override
+    public Issue updateIssueById(Long issueId, IssueRequest issueRequest) throws Exception {
+        Issue existingIssue = getIssueById(issueId);
+        Project project = projectService.getProjectById(issueRequest.getProjectId());
+
+        existingIssue.setTitle(issueRequest.getTitle());
+        existingIssue.setDescription(issueRequest.getDescription());
+        existingIssue.setStatus(issueRequest.getStatus());
+        existingIssue.setPriority(issueRequest.getPriority());
+        existingIssue.setDueDate(issueRequest.getDueDate());
+        existingIssue.setProject(project);
+
+        return issueRepository.save(existingIssue);
+    }
 }
