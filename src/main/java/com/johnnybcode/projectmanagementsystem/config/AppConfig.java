@@ -42,7 +42,7 @@ public class AppConfig {
                         "http://localhost:3000",
                         "http://localhost:5173",
                         "http://localhost:4200",
-                        "https://projectmanagementsystem-johnnybcode.vercel.app/"
+                        "https://projectmanagementsystem-johnnybcode.vercel.app"
                 ));
                 cfg.setAllowedMethods(Collections.singletonList("*"));
                 cfg.setAllowCredentials(true);
