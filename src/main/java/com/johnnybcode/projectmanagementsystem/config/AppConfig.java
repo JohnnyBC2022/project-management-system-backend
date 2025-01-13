@@ -45,7 +45,7 @@ public class AppConfig {
                         "http://localhost:5173",
                         "http://localhost:4200",
                         "https://projectmanagementsystem-johnnybcode.vercel.app",
-                        "https://projectmanagementsystem-frontend-bofgox1m7-johnnybcs-projects.vercel.app"
+                        "https://vercel.com/johnnybcs-projects/projectmanagementsystem-frontend/J2XdLKGPwYuYCG6GpqKqRg8iHv9J"
                 ));
                 cfg.setAllowedMethods(Collections.singletonList("*"));
                 cfg.setAllowCredentials(true);
